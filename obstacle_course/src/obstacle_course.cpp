@@ -1,10 +1,10 @@
 #include "obstacle_course/obstacle_course.h"
-
 #include <chrono>
 #include <cmath>
 
+
 ObstacleCourse::ObstacleCourse() 
-    : Node("obstable_course")
+    : Node("obstacle_course")
 {
     // set up publisher for /display_planned_path topic
     display_pub_ = this->create_publisher<moveit_msgs::msg::DisplayTrajectory>(
@@ -21,6 +21,7 @@ ObstacleCourse::ObstacleCourse()
     goal_joints_ = {M_PI / 2.0, M_PI / 2.0, 0.0, 0.0, 0.0, 0.0};
 
 }
+
 
 void ObstacleCourse::mainRobotMotion()
 {
@@ -108,6 +109,7 @@ void ObstacleCourse::addMeshObstacle(
     RCLCPP_INFO(this->get_logger(), "Mesh obstacle added");
 }
 
+
 void ObstacleCourse::addMeshObstacles()
 {
     geometry_msgs::msg::Pose pose;
@@ -121,6 +123,7 @@ void ObstacleCourse::addMeshObstacles()
         "package://obstacle_course/meshes/obstacle_mitsubishi_meters.stl",
         pose);
 }
+
 
 bool ObstacleCourse::planMotionAndVisualize(std::vector<double> & joints)
 {
@@ -159,6 +162,7 @@ bool ObstacleCourse::planMotionAndVisualize(std::vector<double> & joints)
     }
 }
 
+
 void ObstacleCourse::joyCallback(const sensor_msgs::msg::Joy::SharedPtr msg)
 {
     // button A press detection
@@ -179,4 +183,18 @@ void ObstacleCourse::joyCallback(const sensor_msgs::msg::Joy::SharedPtr msg)
 
     // store current button state for next callback
     previous_a_button_ = a_pressed;
+}
+
+
+int main(int argc, char** argv)
+{
+    rclcpp::init(argc, argv);
+
+    auto node = std::make_shared<ObstacleCourse>();
+
+    node->mainRobotMotion();
+
+    rclcpp::shutdown();
+
+    return 0;
 }
