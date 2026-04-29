@@ -104,10 +104,10 @@ private:
     rclcpp::Subscription<sensor_msgs::msg::Joy>::SharedPtr joy_sub_;
 
     // tracks whether a valid path has been planned and can be executed
-    bool plan_ready_;
+    bool plan_ready_ = false;
 
     // tracks the previous state of the A button to prevent repeated execution
-    bool previous_a_button_;
+    bool previous_a_button_ = false;
 };
 
 #endif // OBSTACLE_COURSE
