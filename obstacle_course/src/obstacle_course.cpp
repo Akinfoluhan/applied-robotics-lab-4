@@ -185,6 +185,13 @@ void ObstacleCourse::joyCallback(const sensor_msgs::msg::Joy::SharedPtr msg)
     previous_a_button_ = a_pressed;
 }
 
+void ObstacleCourse::moveJoints()
+{
+    move_group_->execute(plan_);
+
+    plan_ready_ = false;
+}
+
 
 int main(int argc, char** argv)
 {
