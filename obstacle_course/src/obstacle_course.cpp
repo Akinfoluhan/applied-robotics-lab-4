@@ -63,6 +63,6 @@ void ObstacleCourse::addMeshObstacles()
 
     addMeshObstacle(
         "obstacle_course",
-        "package://obstacle_course/meshes/obstacle_course.stl",
+        "package://obstacle_course/meshes/obstacle_mitsubishi_meters.stl",
         pose);
 }
