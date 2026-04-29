@@ -52,3 +52,17 @@ void ObstacleCourse::addMeshObstacle(
 
     RCLCPP_INFO(this->get_logger(), "Mesh obstacle added");
 }
+
+void ObstacleCourse::addMeshObstacles()
+{
+    geometry_msgs::msg::Pose pose;
+    pose.position.x = 0.0;
+    pose.position.y = 0.0;
+    pose.position.z = 0.0;
+    pose.orientation.w = 1.0;
+
+    addMeshObstacle(
+        "obstacle_course",
+        "package://obstacle_course/meshes/obstacle_course.stl",
+        pose);
+}
