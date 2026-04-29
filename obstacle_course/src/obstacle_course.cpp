@@ -19,3 +19,36 @@ void ObstacleCourse::joyCallback(const sensor_msgs::msg::Joy::SharedPtr msg)
     // store current button state for next callback
     previous_a_button_ = a_pressed;
 }
+
+void ObstacleCourse::addMeshObstacle(
+    const std::string & obstacle_name,
+    const std::string & mesh_resource,
+    const geometry_msgs::msg::Pose & pose)
+{
+    moveit_msgs::msg::CollisionObject obj;
+    obj.header.frame_id = "world";
+    obj.id = obstacle_name;
+
+    std::unique_ptr<shapes::Mesh> mesh(
+        shapes::createMeshFromResource(mesh_resource));
+
+    if (!mesh)
+    {
+        RCLCPP_ERROR(this->get_logger(), "Failed to load mesh");
+        return;
+    }
+
+    shapes::ShapeMsg shape_msg;
+    shapes::constructMsgFromShape(mesh.get(), shape_msg);
+
+    shape_msgs::msg::Mesh mesh_msg =
+        boost::get<shape_msgs::msg::Mesh>(shape_msg);
+
+    obj.meshes.push_back(mesh_msg);
+    obj.mesh_poses.push_back(pose);
+    obj.operation = obj.ADD;
+
+    psi_.applyCollisionObject(obj);
+
+    RCLCPP_INFO(this->get_logger(), "Mesh obstacle added");
+}
