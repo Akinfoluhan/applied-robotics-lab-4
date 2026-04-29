@@ -20,6 +20,10 @@ ObstacleCourse::ObstacleCourse()
     // set goal joint angles
     goal_joints_ = {M_PI / 2.0, M_PI / 2.0, 0.0, 0.0, 0.0, 0.0};
 
+    // initialize controller and planning flags
+    plan_ready_ = false;
+    previous_a_button_ = false;
+
 }
 
 
