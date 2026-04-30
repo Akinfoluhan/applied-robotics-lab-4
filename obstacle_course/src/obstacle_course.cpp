@@ -15,10 +15,10 @@ ObstacleCourse::ObstacleCourse()
         "/joy", 10, std::bind(&ObstacleCourse::joyCallback, this, std::placeholders::_1));
 
     // set initial starting joint angles
-    start_joints_ = {-M_PI / 2.0, M_PI / 4.0, 0.0, 0.0, 0.0, 0.0};
+    // start_joints_ = {-2 * M_PI / 3.0, 0.0, -M_PI / 12, 0.0, 0.0, 0.0};
 
     // set goal joint angles
-    goal_joints_ = {M_PI / 2.0, M_PI / 2.0, 0.0, 0.0, 0.0, 0.0};
+    goal_joints_ = {3 * M_PI / 4.0, M_PI / 2, -M_PI / 12, 0.0, 0.0, 0.0};
 
     // initialize controller and planning flags
     plan_ready_ = false;
@@ -139,10 +139,10 @@ void ObstacleCourse::addMeshObstacles()
     pose.position.y = 0.0;
     pose.position.z = 0.0;
 
-    pose.orientation.w = 1.0;
-    pose.orientation.x = 0.0;
-    pose.orientation.y = 0.0;
-    pose.orientation.z = 0.0;
+    pose.orientation.w = 0.5;
+    pose.orientation.x = 0.5;
+    pose.orientation.y = 0.5;
+    pose.orientation.z = 0.5;
 
     // add the Mitsubishi-specific STL obstacle course to the planning scene
     addMeshObstacle(
